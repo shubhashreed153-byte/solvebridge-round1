@@ -1,69 +1,213 @@
-import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
+    <main className="home">
+      <nav className="navbar">
+        <Link href="/" className="logo">
+          <span className="logo-mark">S</span>
+          <span>SolveBridge</span>
+        </Link>
+
+        <div className="nav-links">
+          <a href="#how">DISCOVER</a>
+          <a href="#ecosystem">CONNECT</a>
+          <a href="#impact">BUILD</a>
+          <a href="#impact">MEASURE</a>
+        </div>
+
+        <Link href="/login" className="sign-in">
+          Sign in →
+        </Link>
+      </nav>
+
+      <section className="hero">
+        <div className="hero-copy">
+          <div className="eyebrow">
+            <span></span>
+            A COLLABORATIVE INNOVATION PLATFORM
+          </div>
+
+          <h1>
+            Problems
+            <br />
+            deserve
+            <br />
+            <span>pathways.</span>
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+
+          <p>
+            SolveBridge connects societal challenges with the people,
+            knowledge and resources capable of turning them into measurable
+            solutions.
           </p>
+
+          <div className="hero-actions">
+            <Link href="/login" className="primary-button">
+              Enter SolveBridge <span>↗</span>
+            </Link>
+
+            <a href="#how" className="secondary-button">
+              Explore the process <span>→</span>
+            </a>
+          </div>
+
+          <div className="keywords">
+            DISCOVER <i>•</i> CONNECT <i>•</i> BUILD <i>•</i> MEASURE
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        <div className="hero-visual">
+          <div className="glow glow-one"></div>
+          <div className="glow glow-two"></div>
+
+          <div className="orbit orbit-one"></div>
+          <div className="orbit orbit-two"></div>
+          <div className="orbit orbit-three"></div>
+
+          <div className="core">
+            <div className="core-symbol">✦</div>
+            <small>SOLVEBRIDGE</small>
+            <strong>CONNECT</strong>
+          </div>
+
+          <div className="floating-card card-one">
+            <span>01</span>
+            <b>CHALLENGES</b>
+            <small>Real-world problems</small>
+          </div>
+
+          <div className="floating-card card-two">
+            <span>02</span>
+            <b>CAPABILITIES</b>
+            <small>Universities & industry</small>
+          </div>
+
+          <div className="floating-card card-three">
+            <span>03</span>
+            <b>IMPACT</b>
+            <small>Track measurable outcomes</small>
+          </div>
         </div>
-      </main>
-    </div>
+      </section>
+
+      <section className="process" id="how">
+        <div className="section-heading">
+          <span>HOW IT WORKS</span>
+          <h2>From problem to impact.</h2>
+        </div>
+
+        <div className="process-grid">
+          <div className="process-card">
+            <div className="number">01</div>
+            <h3>Crowdsource</h3>
+            <p>
+              Citizens, institutions and local bodies bring real societal
+              challenges onto the platform.
+            </p>
+          </div>
+
+          <div className="process-card">
+            <div className="number">02</div>
+            <h3>Collaborate</h3>
+            <p>
+              Universities contribute students, faculty and research while
+              industry contributes expertise and resources.
+            </p>
+          </div>
+
+          <div className="process-card">
+            <div className="number">03</div>
+            <h3>Match & Build</h3>
+            <p>
+              AI-assisted matching connects challenges with relevant
+              capabilities and solution teams.
+            </p>
+          </div>
+
+          <div className="process-card">
+            <div className="number">04</div>
+            <h3>Track Impact</h3>
+            <p>
+              Milestones, evidence, funding and progress are tracked through
+              the complete solution lifecycle.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="ecosystem" id="ecosystem">
+        <div className="section-heading">
+          <span>THE ECOSYSTEM</span>
+          <h2>One platform. Four perspectives.</h2>
+        </div>
+
+        <div className="role-grid">
+          <div className="role-card citizen">
+            <div className="role-icon">♙</div>
+            <h3>Citizen</h3>
+            <p>
+              Report and track real-world challenges and see their journey
+              toward solutions.
+            </p>
+          </div>
+
+          <div className="role-card university">
+            <div className="role-icon">◇</div>
+            <h3>University</h3>
+            <p>
+              Discover matched challenges, build teams and submit practical
+              solutions.
+            </p>
+          </div>
+
+          <div className="role-card industry">
+            <div className="role-icon">▣</div>
+            <h3>Industry</h3>
+            <p>
+              Discover solution proposals, support projects and track
+              contribution impact.
+            </p>
+          </div>
+
+          <div className="role-card admin">
+            <div className="role-icon">⌂</div>
+            <h3>Admin / Government</h3>
+            <p>
+              Verify challenges, allocate support and monitor projects and
+              impact.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="impact" id="impact">
+        <div>
+          <span className="section-label">THE OUTCOME</span>
+          <h2>
+            More relevant ideas.
+            <br />
+            Faster collaboration.
+            <br />
+            Measurable impact.
+          </h2>
+        </div>
+
+        <Link href="/login" className="impact-button">
+          Enter the ecosystem →
+        </Link>
+      </section>
+
+      <footer>
+        <div className="footer-logo">
+          <span className="logo-mark">S</span>
+          SolveBridge
+        </div>
+
+        <span>DISCOVER • CONNECT • BUILD • MEASURE</span>
+
+        <span>Matrix Masters · SIH 2026</span>
+      </footer>
+    </main>
   );
 }
