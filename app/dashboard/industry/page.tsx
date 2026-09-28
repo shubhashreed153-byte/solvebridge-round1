@@ -9,7 +9,7 @@ const items = [
     university:"MVJ Engineering Innovation Lab",
     category:"Water & Sanitation",
     solution:"Low-cost sensors monitor water quality and alert communities when contamination is detected.",
-    need:"Sensors, technical expertise and CSR support",
+    need:"Sensors, technical expertise and industry collaboration",
     impact:"Faster detection of unsafe drinking water."
   },
   {
@@ -25,7 +25,7 @@ const items = [
     university:"Bengaluru Energy Research Team",
     category:"Energy",
     solution:"An intelligent energy system designed for reliable rural power usage.",
-    need:"IoT expertise, equipment and CSR support",
+    need:"IoT expertise, equipment and industry collaboration",
     impact:"Improved local energy reliability."
   }
 ];
@@ -33,29 +33,27 @@ const items = [
 export default function IndustryDashboard(){
   const [tab,setTab]=useState("opportunities");
   const [selected,setSelected]=useState<any>(null);
-  const [support,setSupport]=useState(false);
-  const [amount,setAmount]=useState("");
-  const [method,setMethod]=useState("UPI");
-  const [projects,setProjects]=useState<string[]>([]);
-  const [paid,setPaid]=useState(false);
+  const [projects,setProjects]=useState<any[]>([]);
 
-  function startSupport(x:any){
-    setSelected(x);
-    setSupport(true);
-    setPaid(false);
-  }
-
-  function completeSupport(){
-    if(!amount || Number(amount)<=0){
-      alert("Enter a valid support amount.");
+  function acceptProject(x:any){
+    if(projects.some(p=>p.title===x.title)){
+      alert("Project already accepted.");
       return;
     }
 
-    setPaid(true);
+    setProjects([
+      ...projects,
+      {
+        title:x.title,
+        university:x.university,
+        status:"Accepted",
+        funding:"Government Contract / Funding Required"
+      }
+    ]);
 
-    if(!projects.includes(selected.title)){
-      setProjects([...projects,selected.title]);
-    }
+    setSelected(null);
+    setTab("projects");
+    alert("✓ Project accepted. Government contract/funding is now required.");
   }
 
   return(
@@ -78,8 +76,6 @@ export default function IndustryDashboard(){
       .full{grid-column:1/-1}.notice{margin-bottom:20px;padding:14px;border-radius:12px;background:#1b1531;color:#aaa5b8;font-size:12px}
       .modal{position:fixed;inset:0;background:#000b;display:flex;align-items:center;justify-content:center;padding:20px;z-index:10}
       .modalbox{width:min(700px,100%);max-height:90vh;overflow:auto;background:#171229;border:1px solid #7564b5;border-radius:22px;padding:30px}
-      input,select{width:100%;padding:12px;margin-top:7px;border-radius:9px;border:1px solid #40365b;background:#0e0b1b;color:white}
-      label{display:block;margin-top:15px;font-size:13px;font-weight:bold}
       .close{background:#292240;color:white;margin-left:8px}
       @media(max-width:850px){.grid{grid-template-columns:1fr 1fr}}
       @media(max-width:600px){.grid{grid-template-columns:1fr}h1{font-size:37px}}
@@ -91,11 +87,12 @@ export default function IndustryDashboard(){
       </header>
 
       <section className="intro">
-        <div className="tag">INDUSTRY & CSR DASHBOARD</div>
+        <div className="tag">INDUSTRY DASHBOARD</div>
         <h1>Turn innovation into impact.</h1>
         <p className="muted">
-          Discover verified challenges, university solutions and opportunities
-          to contribute funding, technology, mentorship and expertise.
+          Discover verified challenges, university solutions and
+          opportunities to collaborate through technology, mentorship
+          and industry expertise.
         </p>
       </section>
 
@@ -103,9 +100,9 @@ export default function IndustryDashboard(){
         {[
           ["opportunities","Opportunities"],
           ["solutions","University Solutions"],
-          ["funds","CSR Fund Pool"],
+          ["funds","Government Contracts"],
           ["projects","Active Projects"],
-          ["history","Contribution History"]
+          ["history","Acceptance History"]
         ].map(x=>(
           <button
             key={x[0]}
@@ -122,6 +119,7 @@ export default function IndustryDashboard(){
           <div className="notice">
             PROTOTYPE SEED DATA — Demonstration opportunities.
           </div>
+
           <section className="grid">
             {items.map(x=>(
               <div className="card" key={x.title}>
@@ -130,9 +128,14 @@ export default function IndustryDashboard(){
                 <span className="pill">{x.category}</span>
                 <span className="pill">Business Opportunity</span>
                 <p className="muted">
-                  Industry can provide mentors, tools or domain expertise.
+                  Industry can review and accept projects for
+                  collaboration and deployment.
                 </p>
-                <button className="btn" onClick={()=>setSelected(x)}>
+
+                <button
+                  className="btn"
+                  onClick={()=>setSelected(x)}
+                >
                   View Opportunity →
                 </button>
               </div>
@@ -146,11 +149,19 @@ export default function IndustryDashboard(){
           {items.map(x=>(
             <div className="card" key={x.title}>
               <h3>{x.title}</h3>
-              <p className="muted">Proposed by: {x.university}</p>
+              <p className="muted">
+                Proposed by: {x.university}
+              </p>
+
               <span className="pill">University Solution</span>
               <span className="pill">{x.category}</span>
+
               <p className="muted">{x.solution}</p>
-              <button className="btn" onClick={()=>setSelected(x)}>
+
+              <button
+                className="btn"
+                onClick={()=>setSelected(x)}
+              >
                 Review Solution →
               </button>
             </div>
@@ -161,19 +172,19 @@ export default function IndustryDashboard(){
       {tab==="funds"&&(
         <section className="grid">
           <div className="card full">
-            <div className="tag">CSR FUND POOL</div>
-            <h2>Support urgent innovation projects</h2>
+            <div className="tag">GOVERNMENT CONTRACT</div>
+
+            <h2>Government-funded project pipeline</h2>
+
             <p className="muted">
-              Companies can allocate CSR support toward verified projects.
-              This prototype demonstrates the pledge and payment workflow.
+              Industry does not directly fund projects through this
+              dashboard. Accepted projects can move forward through
+              government contracts or administrative funding.
             </p>
-            <span className="pill">CSR Funding</span>
-            <span className="pill">Auditable Support</span>
-            <span className="pill">Project Impact</span>
-            <br/>
-            <button className="btn" onClick={()=>setSelected(items[0])}>
-              Allocate CSR Support →
-            </button>
+
+            <span className="pill">Government Funding</span>
+            <span className="pill">Contract Based</span>
+            <span className="pill">Admin Review</span>
           </div>
         </section>
       )}
@@ -182,21 +193,29 @@ export default function IndustryDashboard(){
         <section className="grid">
           {projects.length===0?
             <div className="card full">
-              <h2>No active projects yet</h2>
+              <h2>No accepted projects yet</h2>
               <p className="muted">
-                Supported university projects will appear here with
-                milestones and impact tracking.
+                Projects accepted by industry will appear here.
               </p>
             </div>
             :
             projects.map(x=>(
-              <div className="card" key={x}>
-                <h3>{x}</h3>
-                <span className="pill">Supported</span>
-                <span className="pill">Active</span>
+              <div className="card" key={x.title}>
+                <h3>{x.title}</h3>
+
                 <p className="muted">
-                  Funding/support initiated. Milestones and implementation
-                  evidence can be tracked here.
+                  University: {x.university}
+                </p>
+
+                <span className="pill">Industry Accepted</span>
+                <span className="pill">Government Contract</span>
+
+                <p className="muted">
+                  <b>Status:</b> {x.status}
+                </p>
+
+                <p className="muted">
+                  <b>Funding:</b> {x.funding}
                 </p>
               </div>
             ))
@@ -206,119 +225,73 @@ export default function IndustryDashboard(){
 
       {tab==="history"&&(
         <section className="card">
-          <div className="tag">IMPACT RECORD</div>
-          <h2>Contribution History</h2>
+          <div className="tag">PROJECT RECORD</div>
+
+          <h2>Acceptance History</h2>
+
           {projects.length===0?
-            <p className="muted">No contributions recorded yet.</p>
+            <p className="muted">
+              No projects accepted yet.
+            </p>
             :
             projects.map(x=>(
-              <p className="muted" key={x}>
-                ✓ {x} — CSR/support initiated
+              <p className="muted" key={x.title}>
+                ✓ {x.title} — Industry accepted
               </p>
             ))
           }
         </section>
       )}
 
-      {selected&&!support&&(
+      {selected&&(
         <div className="modal">
           <div className="modalbox">
             <div className="tag">SOLUTION REVIEW</div>
+
             <h2>{selected.title}</h2>
-            <p className="muted"><b>University:</b> {selected.university}</p>
-            <p className="muted"><b>Category:</b> {selected.category}</p>
+
+            <p className="muted">
+              <b>University:</b> {selected.university}
+            </p>
+
+            <p className="muted">
+              <b>Category:</b> {selected.category}
+            </p>
 
             <h3>Proposed Solution</h3>
-            <p className="muted">{selected.solution}</p>
+            <p className="muted">
+              {selected.solution}
+            </p>
 
             <h3>Industry Support Needed</h3>
-            <p className="muted">{selected.need}</p>
+            <p className="muted">
+              {selected.need}
+            </p>
 
             <h3>Expected Impact</h3>
-            <p className="muted">{selected.impact}</p>
+            <p className="muted">
+              {selected.impact}
+            </p>
 
-            <span className="pill">CSR Funding</span>
-            <span className="pill">Equipment</span>
-            <span className="pill">Mentorship</span>
-            <span className="pill">Technical Expertise</span>
+            <span className="pill">Industry Review</span>
+            <span className="pill">Government Contract</span>
+            <span className="pill">Government Funding</span>
 
             <br/>
-            <button className="btn" onClick={()=>setSupport(true)}>
-              Support This Solution →
+
+            <button
+              className="btn"
+              onClick={()=>acceptProject(selected)}
+            >
+              Accept Project →
             </button>
-            <button className="btn close" onClick={()=>setSelected(null)}>
+
+            <button
+              className="btn close"
+              onClick={()=>setSelected(null)}
+            >
               Close
             </button>
-          </div>
-        </div>
-      )}
-
-      {selected&&support&&(
-        <div className="modal">
-          <div className="modalbox">
-            <div className="tag">CSR SUPPORT</div>
-            <h2>{selected.title}</h2>
-
-            {!paid?(
-              <>
-                <p className="muted">
-                  Select the support amount and payment method.
-                  This is a prototype payment flow.
-                </p>
-
-                <label>Support Amount (₹)</label>
-                <input
-                  value={amount}
-                  onChange={e=>setAmount(e.target.value)}
-                  placeholder="Example: 25000"
-                  type="number"
-                />
-
-                <label>Payment Method</label>
-                <select
-                  value={method}
-                  onChange={e=>setMethod(e.target.value)}
-                >
-                  <option>UPI</option>
-                  <option>Corporate Card</option>
-                  <option>Net Banking</option>
-                  <option>CSR Fund Pool</option>
-                </select>
-
-                <button className="btn" onClick={completeSupport}>
-                  Confirm Support & Pay →
-                </button>
-
-                <button
-                  className="btn close"
-                  onClick={()=>{setSelected(null);setSupport(false)}}
-                >
-                  Cancel
-                </button>
-              </>
-            ):(
-              <>
-                <h2>✓ Support Recorded</h2>
-                <p className="muted">
-                  CSR support of ₹{amount} has been recorded for this
-                  prototype project.
-                </p>
-                <span className="pill">Payment: Simulated</span>
-                <span className="pill">Method: {method}</span>
-                <span className="pill">Project: Active</span>
-                <br/>
-                <button
-                  className="btn"
-                  onClick={()=>{
-                    setSelected(null);
-                    setSupport(false);
-                    setTab("projects");
-                  }}
-                >
-                  View Active Project →
-                </button>
-              </>
-            )}
           </div>
         </div>
       )}
